@@ -79,22 +79,16 @@ def add_poll_func(title, user_id, poll_private, poll_verification, options):
         while Poll.query.filter_by(url=new_url).first() is not None:
             new_url = url_generator()
         new_poll = Poll(title=title, user_id=user_id, url=new_url, private=poll_private, is_active=True, verification=poll_verification)
-        try:
-            db.session.add(new_poll)
-            db.session.flush()
-        except:
-            db.session.rollback()
+        db.session.add(new_poll)
+        db.session.flush()
         options_list = options.split("\n")
         for option in options_list:
             poll_option = Poll_option(poll_id=new_poll.id,
                                       user_id=user_id,
                                       answer=option,
                                       votes=0)
-            try:
-                db.session.add(poll_option)
-                db.session.flush()
-            except:
-                db.session.rollback()
+            db.session.add(poll_option)
+            db.session.flush()
         db.session.commit()
 
 
