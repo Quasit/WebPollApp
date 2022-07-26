@@ -14,9 +14,10 @@
     <h1 class="blue"></h1>
     <h2 class="wheat">
         {% for key in polls.keys() %}
-        <ul class="white">Poll ID: {{key}}
-        <br><b class="wheat">{{ polls[key]['title'] }}</b>
-        {%if polls[key]['is_active'] == False %}<br><b style="color: #2b2a2abd">Poll closed</b>{% endif %}</ul>
+        <ul>
+            <b class="wheat">{{ polls[key]['title'] }}</b>
+            {%if polls[key]['is_active'] == False %}<br><b style="color: #2b2a2abd">Poll closed</b>{% endif %}
+        </ul>
             {% for option in polls[key]['options'] %}
                 <li class="white"><b>{{ option['answer'] }}</b> - votes: {{ option['votes'] }} // Option ID: {{ option['id'] }} {%if polls[key]['is_active'] == True %}   -  
                     {% if voted == False %}<form action="{{url_for('vote', poll_url = polls[key]['url'], option_id = option['id'])}}" style="display: inline;"><input type="submit" value="VOTE" /></form>
