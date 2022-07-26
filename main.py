@@ -2,11 +2,17 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import sys
+import logging
 
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY') #or 'ThisK3Y$houldB3S3cr3t'
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'ThisK3Y$SECRET_KEY'
+app.config['WTF_CSRF_ENABLED'] = False
 uri = os.getenv("DATABASE_URL")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
