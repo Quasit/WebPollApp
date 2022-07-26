@@ -103,10 +103,9 @@ def add_poll():
 def user(username):
     user = User.query.filter_by(username=username).first()
     polls = json.loads(get_polls_json(user.id))
-    user_ip = get_ip()
     if polls is None:
         polls = {}
-    return render_template('user.html', username=user.username, polls=polls, user_ip=user_ip)
+    return render_template('user.html', username=user.username, polls=polls)
 
 @app.route('/')
 def index():

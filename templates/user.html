@@ -11,14 +11,14 @@
 </head>
 
     {% if current_user.username == username %}<h1 class="blue">Welcome back {{username}}!</h1>{%endif%}
-    <h2 class="blue">Your IP: {{user_ip}}</h2>
     <hr>
     <h3 class="wheat">List of your polls:</h3>
         {% for poll in polls.items() %}
             {% if poll[1]['private'] == True and current_user.username != username %}
             {% else %}
-            <ul class="white"><a class="white" href="{{url_for('poll', poll_url = poll[1]['url'])}}">Poll ID: {{ poll[0] }}</a>
-            <br><b><a class="wheat" style="text-decoration: none" href="{{url_for('poll', poll_url = poll[1]['url'])}}">{{ poll[1]['title'] }}</a></b></ul>
+            <ul>
+                <b><a class="wheat" style="text-decoration: none" href="{{url_for('poll', poll_url = poll[1]['url'])}}">{{ poll[1]['title'] }}</a></b>
+            </ul>
             {% for option in poll[1]['options'] %}
                 <li class="white"><b>{{ option['answer'] }}</b> - votes: {{ option['votes'] }} // Option ID: {{ option['id'] }}</li>
             {% endfor %}
