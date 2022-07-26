@@ -53,7 +53,7 @@ class Poll(db.Model):
     url = db.Column(db.String(16), index=True, unique=True)
     private = db.Column(db.Boolean, index=True, unique=False)
     is_active = db.Column(db.Boolean, index=True, unique=False)
-    verification = db.Column(db.String(8), index=True, unique=False)
+    verification = db.Column(db.String(16), index=True, unique=False)
 
 #  Declaration of Poll_option models with which can be assigned by poll_id or user_id
 class Poll_option(db.Model):
