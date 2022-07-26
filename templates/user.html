@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+    <style>
+        body {
+            background-color: #2b2a2abd;
+            font-family: Helvetica;
+        }
+    </style>
+</head>
+
+    {% if current_user.username == username %}<h1 class="blue">Welcome back {{username}}!</h1>{%endif%}
+    <h2 class="blue">Your IP: {{user_ip}}</h2>
+    <hr>
+    <h3 class="wheat">List of your polls:</h3>
+        {% for poll in polls.items() %}
+            {% if poll[1]['private'] == True and current_user.username != username %}
+            {% else %}
+            <ul class="white"><a class="white" href="{{url_for('poll', poll_url = poll[1]['url'])}}">Poll ID: {{ poll[0] }}</a>
+            <br><b><a class="wheat" style="text-decoration: none" href="{{url_for('poll', poll_url = poll[1]['url'])}}">{{ poll[1]['title'] }}</a></b></ul>
+            {% for option in poll[1]['options'] %}
+                <li class="white"><b>{{ option['answer'] }}</b> - votes: {{ option['votes'] }} // Option ID: {{ option['id'] }}</li>
+            {% endfor %}
+            {% if current_user.username == username %}
+            <br><p class="wheat">Poll privacy - {% if poll[1]['private'] == True %}Private{%else%}Public{%endif%}
+            <br>Poll verification - {{poll[1]['verification']}}</p>
+            <p>{% if poll[1]['is_active'] == True %}
+                <form action="{{url_for('close_poll', username = username, poll_id = poll[0])}}" style="display: inline;"><input type="submit" style="background-color: #862818" value="Close Poll" /></form>
+            {% elif poll[1]['is_active'] == False %}
+                <form action="{{url_for('open_poll', username = username, poll_id = poll[0])}}" style="display: inline;"><input type="submit" style="background-color: #0d491a" value="Open Poll" /></form>
+            {% endif %}
+            {% if poll[1]['private'] == True %}
+                <form action="{{url_for('make_public', username = username, poll_id = poll[0])}}" style="display: inline;"><input type="submit" style="background-color: #0d491a" value="Make Public" /></form>
+            {% elif poll[1]['private'] == False %}
+                <form action="{{url_for('make_private', username = username, poll_id = poll[0])}}" style="display: inline;"><input type="submit" style="background-color: #862818" value="Make Private" /></form>
+            {% endif %}
+            <br><br>
+                <form action="{{url_for('delete_poll', username = username, poll_id = poll[0])}}" style="display: inline;"><input type="submit" style="background-color: #862818" value="DELETE POLL" /></form>
+            </p>
+            {% endif %}
+            <hr>
+            {% endif %}
+        {% endfor %}
+
+{% endblock %}

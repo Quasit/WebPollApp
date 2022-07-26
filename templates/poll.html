@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.2/dist/chart.min.js"></script>
+<head>
+    <style>
+        body {
+            background-color: #2b2a2abd;
+            font-family: Helvetica;
+        }
+    </style>
+</head>
+
+    <h1 class="blue"></h1>
+    <h2 class="wheat">
+        {% for key in polls.keys() %}
+        <ul class="white">Poll ID: {{key}}
+        <br><b class="wheat">{{ polls[key]['title'] }}</b>
+        {%if polls[key]['is_active'] == False %}<br><b style="color: #2b2a2abd">Poll closed</b>{% endif %}</ul>
+            {% for option in polls[key]['options'] %}
+                <li class="white"><b>{{ option['answer'] }}</b> - votes: {{ option['votes'] }} // Option ID: {{ option['id'] }} {%if polls[key]['is_active'] == True %}   -  
+                    {% if voted == False %}<form action="{{url_for('vote', poll_url = polls[key]['url'], option_id = option['id'])}}" style="display: inline;"><input type="submit" value="VOTE" /></form>
+                    {% else %}<form action="{{url_for('vote', poll_url = polls[key]['url'], option_id = option['id'])}}" style="display: inline;"><input style="background-color: #2b2a2abd; cursor: not-allowed;" type="submit" value="VOTE" title="You have already voted in this poll" disabled/></form>
+                    {% endif %} {% endif %}</li>
+            {% endfor %}
+        <hr>
+        {%endfor%}
+    </h2>
+    {% if voted == True or owner == current_user.username %}
+    
+    <center><canvas id="myChart" width="400" height="400"></canvas></center>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: {{ poll_labels | safe }},
+                datasets: [{
+                    label: '# of Votes',
+                    data: {{ poll_votes | safe }},
+                    backgroundColor: [
+                        'rgb(24, 123, 205)',
+                        'rgb(245, 222, 179)',
+                        'rgb(255, 99, 132)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderColor: [
+                        'rgb(24, 123, 205)',
+                        'rgb(245, 222, 179)',
+                        'rgb(255, 99, 132)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: 'rgb(245, 222, 179)'
+                        }
+                    }
+                }
+                
+            }
+        });
+    </script>
+    {%endif%}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="wheat">Current polls:</h3>
+<hr>
+{% for poll in polls.items() %}
+    <ul class="white"><a class="white" href="{{url_for('poll', poll_url = poll[1]['url'])}}">Poll ID: {{ poll[0] }}</a>
+    <br><b><a class="wheat" style="text-decoration: none" href="{{url_for('poll', poll_url = poll[1]['url'])}}">{{ poll[1]['title'] }}</a></b></ul>
+    {% for option in poll[1]['options'] %}
+        <li class="white"><b>{{ option['answer'] }}</b> - votes: {{ option['votes'] }}  // Option ID: {{ option['id'] }}</li>
+    {% endfor %}
+    <hr>
+{% endfor %}
+
+
+{% endblock %}

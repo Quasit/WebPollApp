@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<head>
+    <style>
+        body {
+            background-color: #2b2a2abd;
+            font-family: Helvetica;
+        }
+    </style>
+</head>
+    <h2 class="wheat">Create new poll:</h2>
+        <hr>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <p class="wheat">
+                {{ form.title.label }}<br>
+                {{ form.title(size=50, placeholder="Your question here") }}<br>
+                {% for error in form.title.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p class="wheat">
+                {{ form.poll_options.label }}<br>
+                {{ form.poll_options(placeholder="Poll options - each line is new option", cols='50', rows='4') }}<br>
+                {% for error in form.poll_options.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p class="wheat">{{ form.poll_private.label }} {{ form.poll_private }}</p>
+            <p class="wheat">{{ form.poll_verification.label }} {{ form.poll_verification }}</p>
+            <p>{{ form.submit() }}</p>
+        </form>
+
+
+    
+
+{% endblock %}

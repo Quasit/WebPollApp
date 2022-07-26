@@ -1,0 +1,44 @@
+# DATABASE:
+    @POLL:
+        ADDED - Add private poll field 
+        ADDED - Add poll active field
+        ADDED - Add duplicates_checking field (String - /'IP'/'Cookie'/'None')
+    
+    @IP_Check:
+        ADDED - Add new table
+        ADDED - Add IP_field
+        ADDED - Add foreign key - Poll_id
+
+# CODE
+    @Poll
+        - Get poll result proportions / diagram
+        ADDED - Get poll active status
+        
+    @Index:
+        ADDED - Get only not private polls
+    @User:
+        ADDED - Get only not private polls, unless Current.user.username == username
+        ADDED - Control panel should contain option: Deactivate Poll / Private poll / Delete poll /
+    @IP_Check:
+        ADDED - Create db.Model
+    
+    ADDED Add IP check function
+
+
+# TEMPLATES
+    @User:
+        ADDED - Check if Current.user.username == username - if True = add control panel, else show as guest
+    @Poll:
+        ADDED - display vote buttons only for polls if active field == True
+        - if already voted - add votes proportions bar or circle diagram
+
+
+# GENERAL IDEAS
+    ADDED - Add IP Check
+        (Get IP on poll load - check if stored in database with poll id)
+        (On vote - send IP into database with poll id)
+    ADDED - In creating poll, Dropdown - Duplicates checking - IP check or Cookie check or none
+
+
+
+strawpoll.me
