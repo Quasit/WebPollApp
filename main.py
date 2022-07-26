@@ -12,7 +12,7 @@ app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'ThisK3Y$SECRET_KEY'
-app.config['WTF_CSRF_ENABLED'] = False
+#app.config['WTF_CSRF_ENABLED'] = False
 uri = os.getenv("DATABASE_URL")
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3 class="wheat">Current polls LuL:</h3>
+<h3 class="wheat">Current polls:</h3>
 <hr>
 {% for poll in polls.items() %}
     <ul class="white"><a class="white" href="{{url_for('poll', poll_url = poll[1]['url'])}}">Poll ID: {{ poll[0] }}</a>
