@@ -26,7 +26,7 @@
         <hr>
         {%endfor%}
     </h2>
-    {% if voted == True or owner == current_user.username %}
+    {% if voted == True or owner == current_user.username or verif == 'None' %}
     
     <center><canvas id="myChart" width="400" height="400"></canvas></center>
     <script>

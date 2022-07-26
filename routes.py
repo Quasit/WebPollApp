@@ -57,7 +57,6 @@ def poll(poll_url):
     polls = json.loads(get_polls_json(poll_id=poll.id))
     poll_labels = get_poll_options_labels(poll.id)
     poll_votes = get_poll_options_votes(poll.id)
-    votes_sum = list(map(lambda a: a * a, poll_votes))
     if polls is None:
         polls = {}
     if poll.verification == 'Cookie check':
@@ -66,16 +65,17 @@ def poll(poll_url):
             voted = True
         else:
             voted = False
-        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=voted, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner, votes_sum=votes_sum)
+        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=voted, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner)
     elif poll.verification == 'IP check':
         user_ip = get_ip()
         if IP_check.query.filter_by(poll_id=poll.id, ip=user_ip).first() is not None:
             voted = True
         else:
             voted = False
-        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=voted, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner, votes_sum=votes_sum)
+        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=voted, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner)
     elif poll.verification == 'None':
-        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=False, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner, votes_sum=votes_sum)
+        verif = 'None'
+        return render_template('poll.html', poll_url=poll_url, polls=polls, voted=False, poll_labels=poll_labels, poll_votes=poll_votes, owner=owner, verif=verif)
 
 
 
