@@ -60,7 +60,7 @@
         <b class="wheat">Where you can create and share polls</b>
     </center>
 </div>
-<div style="display: table; margin: 0 auto; padding: 30px 0px">
+<div style="display: table; margin: 0 auto; padding: 10px 10px">
 <form class="pull-left" action="{{ url_for('index') }}" style="display: inline;"><input type="submit" value="HOME" /></form>
 <form class="pull-left" action="{{ url_for('add_poll', username=current_user.username) }}" style="display: inline;"><input type="submit" value="ADD POLL" /></form>
 {% if current_user.is_anonymous %}
