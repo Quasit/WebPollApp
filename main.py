@@ -8,9 +8,11 @@ import logging
 
 app = Flask(__name__)
 
+# Logger for displaying errors in Heroku logs
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
+# App and Database setup
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'ThisK3Y$SECRET_KEY'
 uri = os.getenv("DATABASE_URL")
 if uri.startswith("postgres://"):
@@ -20,7 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
+# Login manager setup
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
