@@ -31,7 +31,7 @@
     </h2>
     {% if voted == True or owner == current_user.username or verif == 'None' %}
     
-    <center><canvas id="myChart" width="100%" height="100%"></canvas></center>
+    <center><canvas id="myChart" width="device-width" height="100%"></canvas></center>
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
