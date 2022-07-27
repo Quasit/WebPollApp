@@ -18,12 +18,14 @@
             <b class="wheat">{{ polls[key]['title'] }}</b>
             {%if polls[key]['is_active'] == False %}<br><b style="color: #2b2a2abd">Poll closed</b>{% endif %}
         </ul>
+        <ul>
             {% for option in polls[key]['options'] %}
                 <li class="white" style="order:{{ option['id'] }}"><b>{{ option['answer'] }}</b>{%if polls[key]['is_active'] == True %}   -  
                     {% if voted == False %}<form action="{{url_for('vote', poll_url = polls[key]['url'], option_id = option['id'])}}" style="display: inline;"><input type="submit" value="VOTE" /></form>
                     {% else %}<form action="{{url_for('vote', poll_url = polls[key]['url'], option_id = option['id'])}}" style="display: inline;"><input style="background-color: #2b2a2abd; cursor: not-allowed;" type="submit" value="VOTE" title="You have already voted in this poll" disabled/></form>
                     {% endif %} {% endif %}</li>
             {% endfor %}
+        </ul>
         <hr>
         {%endfor%}
     </h2>
