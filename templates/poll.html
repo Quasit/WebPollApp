@@ -31,10 +31,10 @@
     </h2>
     {% if voted == True or owner == current_user.username or verif == 'None' %}
     
-    <center><canvas id="myChart" width="device-width" height="device-width"></canvas></center>
+    <center><canvas id="myChart" width="100%"></canvas></center>
     <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: {{ poll_labels | safe }},
