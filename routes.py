@@ -54,7 +54,6 @@ def register():
 
 # Single Poll route - accessed by short url attached to Poll model
 @app.route('/poll/<poll_url>', methods=['GET', 'POST'])
-@login_required
 def poll(poll_url):
     # First getting poll object from database by it's url, then set the owner object by user_id
     # owner variable is used in template to check if logged user is poll owner
